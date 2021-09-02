@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mars Rover Picture Finder</title>
+</head>
+<body>
+    HELLOOOOOOOO
+    <!--Search Bar -->
+    <div>
+        <form method=POST  action="{% url 'index-view' %}">
+
+            {% csrf_token %}
+
+            <input class="search-field" type="date" aria-label="Search Date" name="search-date">
+            <button class="search-button" type="submit"></button>
+          </form>
+
+            {{search_date}}
+            {{my_type}}
+
+    </div>
+</body>
+</html>
