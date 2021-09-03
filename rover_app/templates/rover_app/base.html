@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'rover_app/main.css' %}">
+
+    <title>Mars Rover Picture Finder</title>
+
+     
+</head>
+<body class="m-5">
+
+    <div class="container">
+        <!--Search Bar -->
+        <form method=POST  action="{% url 'results-view' %}">
+            <div class="row">
+                <div class="col-md-12">
+                    {% csrf_token %}
+                    {% if search_date %}
+                        <input class="search-field" type="date" aria-label="Search Date" name="search-date" value="{{search_date}}">
+                    {% else %}
+                        <input class="search-field" type="date" aria-label="Search Date" name="search-date">
+                    {% endif%}
+                    
+                    <button class="search-button btn" type="submit"></button>
+                </div>
+            </div>
+
+            
+            <!-- filter bar-->
+            <div class="row">
+                <div class="form-group col-md-12">
+                        {% if filter_rover %}
+                        <select title="{{filter_rover_string}}" name="filter-rover" class="show-tick selectpicker"multiple data-actions-box="true"  value="{{filter_rover}} multiple">
+                            <option value="Curiosity">Curiosity</option>
+                            <option value="Opportunity">Opportunity</option>
+                            <option value="Spirit">Spirit</option>
+                        </select>
+                        {% else %}
+                        <select title="Select Rovers" name="filter-rover" class="show-tick selectpicker"multiple data-actions-box="true" multiple>
+                            <option value="Curiosity">Curiosity</option>
+                            <option value="Opportunity">Opportunity</option>
+                            <option value="Spirit">Spirit</option>
+                        </select>
+                        {% endif %}
+                 
+                        {% if filter_camera %}
+                            <select title="{{filter_camera_string}}"  name="filter-camera" class="show-tick selectpicker" multiple data-actions-box="true" value="{{filter_camera}}" multiple>
+                                <option value="FHAZ">FHAZ</option>
+                                <option value="RHAZ">RHAZ</option>
+                                <option value="MAST">MAST</option>
+                                <option value="CHEMCAM">CHEMCAM</option>
+                                <option value="MAHLI">MAHLI</option>
+                                <option value="MARDI">MARDI</option>
+                                <option value="NAVCAM">NAVCAM</option>
+                                <option value="PANCAM">PANCAM</option>
+                                <option value="MINITES">MINITES</option>
+                            </select>
+                        {% else %}                        
+                            <select title="Select Cameras" name="filter-camera" class="show-tick selectpicker" multiple data-actions-box="true" multiple>
+                                <option value="FHAZ">FHAZ</option>
+                                <option value="RHAZ">RHAZ</option>
+                                <option value="MAST">MAST</option>
+                                <option value="CHEMCAM">CHEMCAM</option>
+                                <option value="MAHLI">MAHLI</option>
+                                <option value="MARDI">MARDI</option>
+                                <option value="NAVCAM">NAVCAM</option>
+                                <option value="PANCAM">PANCAM</option>
+                                <option value="MINITES">MINITES</option>
+                            </select>
+                        {% endif %}
+                                            
+                        <button class="filter-button btn" type="submit">Filter</button>
+                </div>
+            </div>
+
+        </form>
+                {{search_date}}
+                {{filter_rover}}
+                {{filter_camera}}
+
+
+       
+        <!-- If there are no results-->
+        {% if not all_photos %}
+        Sorry, no photos for this date.
+        {% endif %}
+
+
+        <!-- Image Card -->
+        <div class="row">
+            {% for photo in all_photos %}
+                <div class="col-md-3">
+                    <div class="card my-2">
+                        <img src='{{photo.img_src}}'>
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="{% url 'photo-view' photo_date=photo.earth_date photo_id=photo.id %}">Photo #{{photo.id}}</a></h5>
+                            <p class="card-text">
+                                <b>Date:</b> {{datetime_search_date|date:"n/j/Y"}}
+                                <br>
+                                <b>Rover:</b> {{photo.rover.name}}
+                                <br>
+                                <b>Camera:</b> <span title="{{photo.camera.full_name}}">{{photo.camera.name}}</span> 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+
+    
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/css/bootstrap-select.min.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/js/bootstrap-select.min.js"></script>
+
+</body>
+</html>
