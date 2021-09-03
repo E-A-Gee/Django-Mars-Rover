@@ -9,6 +9,8 @@ def index(request):
 
         api_key = 'KMYa9fgdIMxNz8nghVBlfqg49hiPG55Jy0w5yuO5'
         search_date = request.POST.get('search-date')
+        filter_rover = request.POST.get('filter-rover')
+        filter_camera = request.POST.get('filter-camera')
         
         all_photos = []
 
@@ -24,13 +26,20 @@ def index(request):
                 all_photos.extend(new_results)
                 page += 1
 
+        #turn each photo-dict values into attributes using munch
+        #because django templates doesn't allow access to dictionary values easily
         munchified_photos = []
-
         for photo in all_photos:
             munchified_photos.append(munchify(photo))
 
 
-        context = {'search_date':search_date, "all_photos":munchified_photos}
+        context = {
+            'search_date':search_date,
+            "filter_rover":filter_rover,
+            "filter_camera":filter_camera,
+            "all_photos":munchified_photos
+        }
+
         return render(request, 'rover_app/rover.html', context)
 
     return render(request, 'rover_app/rover.html')

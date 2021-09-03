@@ -1,4 +1,3 @@
-{% load rover_app_tags %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,10 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'rover_app/main.css' %}">
 
     <title>Mars Rover Picture Finder</title>
+
+     
 </head>
 <body class="m-5">
 
@@ -17,22 +19,62 @@
         <!--Search Bar -->
         <div class="row">
             <div class="col-md-12">
+
+                
                 <form method=POST  action="{% url 'index-view' %}">
     
                     {% csrf_token %}
-        
-                    <input class="search-field" type="date" aria-label="Search Date" name="search-date">
-                    <button class="search-button" type="submit"></button>
+                    {% if search_date %}
+                        <input class="search-field" type="date" aria-label="Search Date" name="search-date" value="{{search_date}}">
+                    {% else %}
+                        <input class="search-field" type="date" aria-label="Search Date" name="search-date">
+                    {% endif%}
+                    
+                    <button class="search-button btn" type="submit"></button>
+
                 </form>
                 {{search_date}}
-                {{my_type}}
+                {{filter_rover}}
             </div>
         </div>
 
-        <!-- Image Card -->
- 
+        <!-- filter bar-->
+        <div class="row">
+            <div class="form-group col-md-12">
+                <form method=POST  action="#">
+    
+                    {% csrf_token %}
+                    
+                    <select title="Rover" name="filter-rover" class="show-tick selectpicker"multiple data-actions-box="true" multiple>
+                        <option value="Curiosity">Curiosity</option>
+                        <option value="Opportunity">Opportunity</option>
+                        <option value="Spirit">Spirit</option>
+                    </select>
 
-        
+                    <select title="Camera" title="filter-camera" class="show-tick selectpicker" multiple data-actions-box="true" multiple>
+                        <option value="FHAZ">FHAZ</option>
+                        <option value="RHAZ">RHAZ</option>
+                        <option value="MAST">MAST</option>
+                        <option value="CHEMCAM">CHEMCAM</option>
+                        <option value="MAHLI">MAHLI</option>
+                        <option value="MARDI">MARDI</option>
+                        <option value="NAVCAM">NAVCAM</option>
+                        <option value="PANCAM">PANCAM</option>
+                        <option value="MINITES">MINITES</option>
+                    </select>
+                                        
+                    <button class="filter-button btn" type="submit"></button>
+                </form>
+            </div>
+        </div>
+
+        <!-- If there are no results-->
+        {% if not all_photos %}
+        Sorry, no photos for this date.
+        {% endif %}
+
+
+        <!-- Image Card -->
         <div class="row">
             {% for photo in all_photos %}
                 <div class="col-md-3">
@@ -53,9 +95,18 @@
             {% endfor %}
         </div>
         
+
     
     </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/css/bootstrap-select.min.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/js/bootstrap-select.min.js"></script>
 
 </body>
 </html>
