@@ -14,99 +14,18 @@
      
 </head>
 <body class="m-5">
+HELLOOOOOO
 
-    <div class="container">
-        <!--Search Bar -->
-        <div class="row">
-            <div class="col-md-12">
-
-                
-                <form method=POST  action="{% url 'index-view' %}">
-    
-                    {% csrf_token %}
-                    {% if search_date %}
-                        <input class="search-field" type="date" aria-label="Search Date" name="search-date" value="{{search_date}}">
-                    {% else %}
-                        <input class="search-field" type="date" aria-label="Search Date" name="search-date">
-                    {% endif%}
-                    
-                    <button class="search-button btn" type="submit"></button>
-
-                </form>
-                {{search_date}}
-                {{filter_rover}}
-            </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form method=POST  action="{% url 'results-view' %}">
+                {% csrf_token %}
+                <input class="search-field" type="date" aria-label="Search Date" name="search-date">
+                <button class="search-button btn" type="submit">Search</button>
+            </form>
         </div>
-
-        <!-- filter bar-->
-        <div class="row">
-            <div class="form-group col-md-12">
-                <form method=POST  action="#">
-    
-                    {% csrf_token %}
-                    
-                    <select title="Rover" name="filter-rover" class="show-tick selectpicker"multiple data-actions-box="true" multiple>
-                        <option value="Curiosity">Curiosity</option>
-                        <option value="Opportunity">Opportunity</option>
-                        <option value="Spirit">Spirit</option>
-                    </select>
-
-                    <select title="Camera" title="filter-camera" class="show-tick selectpicker" multiple data-actions-box="true" multiple>
-                        <option value="FHAZ">FHAZ</option>
-                        <option value="RHAZ">RHAZ</option>
-                        <option value="MAST">MAST</option>
-                        <option value="CHEMCAM">CHEMCAM</option>
-                        <option value="MAHLI">MAHLI</option>
-                        <option value="MARDI">MARDI</option>
-                        <option value="NAVCAM">NAVCAM</option>
-                        <option value="PANCAM">PANCAM</option>
-                        <option value="MINITES">MINITES</option>
-                    </select>
-                                        
-                    <button class="filter-button btn" type="submit"></button>
-                </form>
-            </div>
-        </div>
-
-        <!-- If there are no results-->
-        {% if not all_photos %}
-        Sorry, no photos for this date.
-        {% endif %}
-
-
-        <!-- Image Card -->
-        <div class="row">
-            {% for photo in all_photos %}
-                <div class="col-md-3">
-                    <div class="card my-2">
-                        <img src='{{photo.img_src}}'>
-                        <div class="card-body">
-                            <h5 class="card-title">Photo #{{photo.id}}</h5>
-                            <p class="card-text">
-                                <b>Date:</b>
-                                <br>
-                                <b>Rover:</b> {{photo.rover.name}}
-                                <br>
-                                <b>Camera:</b> <span title="{{photo.camera.full_name}}">{{photo.camera.name}}</span> 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        
-
-    
     </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-
-
-<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/css/bootstrap-select.min.css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/js/bootstrap-select.min.js"></script>
 
 </body>
 </html>
