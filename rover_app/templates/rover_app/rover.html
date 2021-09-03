@@ -1,26 +1,61 @@
+{% load rover_app_tags %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'rover_app/main.css' %}">
+
     <title>Mars Rover Picture Finder</title>
 </head>
-<body>
-    HELLOOOOOOOO
-    <!--Search Bar -->
-    <div>
-        <form method=POST  action="{% url 'index-view' %}">
+<body class="m-5">
 
-            {% csrf_token %}
+    <div class="container">
+        <!--Search Bar -->
+        <div class="row">
+            <div class="col-md-12">
+                <form method=POST  action="{% url 'index-view' %}">
+    
+                    {% csrf_token %}
+        
+                    <input class="search-field" type="date" aria-label="Search Date" name="search-date">
+                    <button class="search-button" type="submit"></button>
+                </form>
+                {{search_date}}
+                {{my_type}}
+            </div>
+        </div>
 
-            <input class="search-field" type="date" aria-label="Search Date" name="search-date">
-            <button class="search-button" type="submit"></button>
-          </form>
+        <!-- Image Card -->
+ 
 
-            {{search_date}}
-            {{my_type}}
-
+        
+        <div class="row">
+            {% for photo in all_photos %}
+                <div class="col-md-3">
+                    <div class="card my-2">
+                        <img src='{{photo.img_src}}'>
+                        <div class="card-body">
+                            <h5 class="card-title">Photo #{{photo.id}}</h5>
+                            <p class="card-text">
+                                <b>Date:</b>
+                                <br>
+                                <b>Rover:</b> {{photo.rover.name}}
+                                <br>
+                                <b>Camera:</b> <span title="{{photo.camera.full_name}}">{{photo.camera.name}}</span> 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+    
     </div>
+
+
 </body>
 </html>
