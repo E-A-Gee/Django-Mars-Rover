@@ -94,6 +94,7 @@ def photo (request, photo_date, photo_id,):
             all_photos.extend(new_results)
             page += 1
 
+    #Munch provides attribute-style access (a la JavaScript objects) for Python dict objects.
     munchified_photos = []
     for photo in all_photos:
         munchified_photos.append(munchify(photo))
