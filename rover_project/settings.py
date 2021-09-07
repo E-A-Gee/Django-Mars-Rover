@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('ROVER_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('ROVER_DEBUG_VALUE')
+DEBUG = (os.environ.get('ROVER_DEBUG_VALUE') == 'True')
 
 ALLOWED_HOSTS = ['geeliz-mars-rover-app.herokuapp.com']
 
