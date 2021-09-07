@@ -21,12 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-*+v8dx0_9(cv&#bss$!2k=5*8x1=g!&cj==2gme@akpdvg%^k='
+#SECRET_KEY = 'django-insecure-*+v8dx0_9(cv&#bss$!2k=5*8x1=g!&cj==2gme@akpdvg%^k='
+SECRET_KEY = os.environ.get('ROVER_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('ROVER_DEBUG_VALUE')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['geeliz-mars-rover-app.herokuapp.com']
 
 
 # Application definition
