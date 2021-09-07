@@ -36,13 +36,13 @@ project_env\Scripts\activate.ps1
 ```
 
 
-#### 3. Install Python dependencies
+### 3. Install Python dependencies
 ```sh
 pip install -r requirements.txt
 ```
 
 
-#### 4. Create environment variables for 'ROVER_SECRET_KEY' and 'ROVER_DEBUG_VALUE'
+### 4. Create environment variables for 'ROVER_SECRET_KEY' and 'ROVER_DEBUG_VALUE'
 More on environment variables [here](https://kb.wisc.edu/cae/page.php?id=24500/) and [here](https://djangocentral.com/environment-variables-in-django/).
 
 Set 'ROVER_DEBUG_VALUE to 'True'
@@ -66,7 +66,7 @@ python manage.py createsuperuser
 ```
 
 
-### 6. Run Django development server
+### 5. Run Django development server
 ```sh
 python manage.py runserver
 ```
