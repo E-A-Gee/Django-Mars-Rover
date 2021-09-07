@@ -57,7 +57,7 @@ secrets.token_hex(24)
 
 
 ### 5. Create SQLite database, run migrations, create admin user
-cd into the project directory (should be the folder with the manage.py file)
+Cd into the project directory (should be the folder with the manage.py file).
 ```sh
 cd rover_project
 python manage.py make migrations
