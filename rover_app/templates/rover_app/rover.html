@@ -1,31 +1,24 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{% static 'rover_app/main.css' %}">
+{% extends "rover_app/base.html" %}
 
-    <title>Mars Rover Picture Finder</title>
+{% block content %}
+<div class="main-search">
+    <form method=POST  action="{% url 'results-view' %}">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td align="center">
+                    <p><h1 id="search-title">Search Rover Photos</h1></p>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <input class="form-control rounded-pill" id="search-date-box" type="date" aria-label="Search Date" name="search-date">
+                </td>
+            </tr>
+        </table>
+        <button class="invisible" type="submit">Search</button>
+    </form>
+</div>
 
-     
-</head>
-<body class="m-5">
-HELLOOOOOO
-
-    <div class="row">
-        <div class="col-md-12">
-            <form method=POST  action="{% url 'results-view' %}">
-                {% csrf_token %}
-                <input class="search-field" type="date" aria-label="Search Date" name="search-date">
-                <button class="search-button btn" type="submit">Search</button>
-            </form>
-        </div>
-    </div>
-
-
-</body>
-</html>
+<div class="search-photo-credit">Photo:JPL-Caltech/MSSS/NASA</div>
+{% endblock content%}

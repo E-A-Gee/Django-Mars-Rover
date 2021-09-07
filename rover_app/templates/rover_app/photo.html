@@ -1,14 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{individual_photo.id}}</title>
-</head>
-<body>
-    hewwooo
-    {{individual_photo.id}}
-<img src="{{individual_photo.img_src}}">
-</body>
-</html>
+{% extends "rover_app/base.html" %}
+{% block content %}
+
+<div class="container" style="padding-top: 10vh; padding-bottom:5vh;">
+    <div class="row justify-content-left">
+        <div class="col-md-3">
+            <button class="back-button" onclick="history.go(-1)">Back</button>
+        </div>
+        <div class="col-md-6">
+            <div class="card my-2">
+                <img src='{{individual_photo.img_src}}'>
+                <div class="card-body">
+                    <h5 class="card-title">Photo #{{individual_photo.id}}</h5>
+                    <p class="card-text">
+                        <b>Date:</b> {{individual_photo_date|date:"n/j/Y"}}
+                        <br>
+                        <b>Rover:</b> {{individual_photo.rover.name}}
+                        <br>
+                        <b>Camera:</b> <span title="{{individual_photo.camera.full_name}}">{{individual_photo.camera.name}}</span> 
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

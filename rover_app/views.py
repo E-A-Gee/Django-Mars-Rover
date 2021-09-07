@@ -7,6 +7,11 @@ from datetime import datetime
 def index (request):
     return render(request, 'rover_app/rover.html')
 
+def meet (request):
+    return render(request, 'rover_app/meet.html')
+
+def about (request):
+    return render(request, 'rover_app/about.html')
 
 
 def results (request):
@@ -57,7 +62,7 @@ def results (request):
 
     #check if there's a camera filter and remove photos that aren't relevant
     if filter_camera:
-        munchified_photos = list(filter(lambda x: x.id == photo_id, munchified_photos))
+        munchified_photos = list(filter(lambda x: x.camera.name in filter_camera, munchified_photos))
 
 
 
@@ -94,7 +99,9 @@ def photo (request, photo_date, photo_id,):
         munchified_photos.append(munchify(photo))
     
     individual_photo = list(filter(lambda x: x.id == int(photo_id), munchified_photos))[0]
+    
+    individual_photo_date = datetime.strptime(individual_photo.earth_date, '%Y-%m-%d')
 
     
     
-    return render(request, 'rover_app/photo.html', {"individual_photo":individual_photo})
+    return render(request, 'rover_app/photo.html', {"individual_photo":individual_photo, 'individual_photo_date':individual_photo_date})
