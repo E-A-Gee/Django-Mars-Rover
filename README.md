@@ -3,13 +3,13 @@
 Function
 Finds and displays all pictures taken by the Nasa mars rovers on a specific date.
 
-### Resources used:
+### Resources Used:
 
 NASA's Mars Rover Photos API:
 
 https://api.nasa.gov/
 
-## How to use
+## How to Use
 
 1. Type a date into the search bar using a dd-mm-yyyy format date and hit enter.
 2. Results will appear. You now have te ability to filter by rover and camera.
