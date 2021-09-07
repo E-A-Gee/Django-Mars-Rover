@@ -43,9 +43,16 @@ pip install -r requirements.txt
 
 
 ### 4. Create environment variables for 'ROVER_SECRET_KEY' and 'ROVER_DEBUG_VALUE'
-More on environment variables [here](https://kb.wisc.edu/cae/page.php?id=24500/) and [here](https://djangocentral.com/environment-variables-in-django/).
+More on environment variables [here](https://djangocentral.com/environment-variables-in-django/).
 
-Set 'ROVER_DEBUG_VALUE to 'True'
+Here is one way to set environment variables for Windows:
+- Head to Control Panel > System and Security > System > Advanced System Systems
+- Click the **Environment Variables** button (on the Advanced tab)
+- Click **Edit** under *User variables for (User)*, not *System variables*
+
+Set 'ROVER_DEBUG_VALUE' to 'True'.
+
+Generate a secret key and set 'ROVER_SECRET_KEY' to this new value.
 
 An easy way to generate a new secret key (ROVER_SECRET_KEY) is the Python interpreter using secrets:
 ```sh
@@ -54,6 +61,7 @@ python
 import secrets
 secrets.token_hex(24)
 ```
+
 
 
 ### 5. Create SQLite database, run migrations, create admin user
