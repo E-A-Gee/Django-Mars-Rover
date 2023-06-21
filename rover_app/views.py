@@ -20,7 +20,6 @@ def results (request):
     datetime_search_date = datetime.strptime(search_date, '%Y-%m-%d')
     filter_rover = request.POST.getlist('filter-rover')
     filter_camera = request.POST.getlist('filter-camera')
-
     
     # for what shows up in the dropdown filter menu
     if len(filter_rover) == 3:
@@ -28,7 +27,6 @@ def results (request):
     else:
         filter_rover_string = ", ".join(filter_rover)
         
-
     if len(filter_camera) == 1:
         filter_camera_string = filter_camera[0]
     elif len(filter_camera) == 9:
@@ -42,13 +40,13 @@ def results (request):
     if filter_rover:
         rover_loop = filter_rover
     else:
-        rover_loop = ['Curiousity', 'Opportunity', 'Spirit']
+        rover_loop = ['Curiosity', 'Opportunity', 'Spirit']
     for rover in rover_loop:
         new_results = True
         page = 1
         #loop through every page of results
         while new_results:
-            url = f'https://api.nasa.gov/mars-photos/api/v1/rovers/{rover}/photos?earth_date={search_date}&page={page}&api_key={api_key}'   
+            url = f'https://api.nasa.gov/mars-photos/api/v1/rovers/{rover}/photos?earth_date={search_date}&page={page}&api_key={api_key}'
             response = requests.get(url).json()
             new_results = response.get('photos', [])
             all_photos.extend(new_results)
@@ -83,12 +81,12 @@ def photo (request, photo_date, photo_id,):
     api_key = 'KMYa9fgdIMxNz8nghVBlfqg49hiPG55Jy0w5yuO5'
     all_photos = []
 
-    for rover in ['Curiousity', 'Opportunity', 'Spirit']:
+    for rover in ['Curiosity', 'Opportunity', 'Spirit']:
         new_results = True
         page = 1
         #loop through every page of results
         while new_results:
-            url = f'https://api.nasa.gov/mars-photos/api/v1/rovers/{rover}/photos?earth_date={photo_date}&page={page}&api_key={api_key}'   
+            url = f'https://api.nasa.gov/mars-photos/api/v1/rovers/{rover}/photos?earth_date={photo_date}&page={page}&api_key={api_key}' 
             response = requests.get(url).json()
             new_results = response.get('photos', [])
             all_photos.extend(new_results)
@@ -103,6 +101,4 @@ def photo (request, photo_date, photo_id,):
     
     individual_photo_date = datetime.strptime(individual_photo.earth_date, '%Y-%m-%d')
 
-    
-    
     return render(request, 'rover_app/photo.html', {"individual_photo":individual_photo, 'individual_photo_date':individual_photo_date})
