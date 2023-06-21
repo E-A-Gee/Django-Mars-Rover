@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 
-ALLOWED_HOSTS = ['geeliz-mars-rover.up.railway.app']
+ALLOWED_HOSTS = ["geeliz-mars-rover.up.railway.app"]
 
 
 # Application definition
@@ -130,3 +130,4 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+NASA_API_KEY = os.environ.get('NASA_API_KEY')

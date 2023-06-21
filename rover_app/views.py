@@ -1,9 +1,10 @@
-from django.shortcuts import render
 import requests
-from munch import munchify
-from datetime import datetime
 
-# Create your views here.
+from datetime import datetime
+from django.conf import settings
+from django.shortcuts import render
+from munch import munchify
+
 def index (request):
     return render(request, 'rover_app/rover.html')
 
@@ -15,7 +16,6 @@ def about (request):
 
 
 def results (request):
-    api_key = 'KMYa9fgdIMxNz8nghVBlfqg49hiPG55Jy0w5yuO5'
     search_date = request.POST.get('search-date')
     datetime_search_date = datetime.strptime(search_date, '%Y-%m-%d')
     filter_rover = request.POST.getlist('filter-rover')
@@ -46,7 +46,10 @@ def results (request):
         page = 1
         #loop through every page of results
         while new_results:
-            url = f'https://api.nasa.gov/mars-photos/api/v1/rovers/{rover}/photos?earth_date={search_date}&page={page}&api_key={api_key}'
+            url = (
+                f'https://api.nasa.gov/mars-photos/api/v1/rovers/{rover}/photos?'
+                f'earth_date={search_date}&page={page}&api_key={settings.NASA_API_KEY}'
+            )
             response = requests.get(url).json()
             new_results = response.get('photos', [])
             all_photos.extend(new_results)
@@ -78,7 +81,6 @@ def results (request):
 
 
 def photo (request, photo_date, photo_id,):
-    api_key = 'KMYa9fgdIMxNz8nghVBlfqg49hiPG55Jy0w5yuO5'
     all_photos = []
 
     for rover in ['Curiosity', 'Opportunity', 'Spirit']:
@@ -86,7 +88,11 @@ def photo (request, photo_date, photo_id,):
         page = 1
         #loop through every page of results
         while new_results:
-            url = f'https://api.nasa.gov/mars-photos/api/v1/rovers/{rover}/photos?earth_date={photo_date}&page={page}&api_key={api_key}' 
+            url = (
+                f'https://api.nasa.gov/mars-photos/api/v1/rovers/{rover}/photos?'
+                f'earth_date={photo_date}&page={page}&api_key={settings.NASA_API_KEY}' 
+            )
+
             response = requests.get(url).json()
             new_results = response.get('photos', [])
             all_photos.extend(new_results)
